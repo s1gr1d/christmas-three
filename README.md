@@ -1,12 +1,12 @@
 # Description
 
-This project is my starter project for Apps with three.js using react-three-fiber, which is a React.js renderer for three.js (https://www.npmjs.com/package/react-three-fiber)
+This project is a small christmas project with three.js using react-three-fiber, which is a React.js renderer for three.js (https://www.npmjs.com/package/react-three-fiber)
 
 
 
-The simple app consists of a rotating cube inside a canvas.
+The app creates a christmas tree, depending on the given data (`ringSpacing`, `ringAmount` ,...)
 
-![screenshot](./screenshot.jpg)
+![screenshot](./screenshot.png)
 
 
 
