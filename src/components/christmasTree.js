@@ -1,55 +1,66 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { TreeRing } from "./treeRing";
+import {TreeRing} from "./treeRing";
+import {useSpring, animated} from '@react-spring/three'
 
 const generateRadiusData = (ringAmount, bottomRadius) => {
-  const ringInterpolation = bottomRadius / ringAmount; // how much space is between the rings from top (0) to bottom
-  const radiusData = Array.from({ length: ringAmount },
-    (currValue, index) => (
-      {
-        radiusBottom: index * ringInterpolation + ringInterpolation,
-        radiusTop: index * ringInterpolation + ringInterpolation - ringInterpolation * 0.7
-      }));
-  return radiusData.reverse();
+    const ringInterpolation = bottomRadius / ringAmount; // how much space is between the rings from top (0) to bottom
+    const radiusData = Array.from({length: ringAmount},
+        (currValue, index) => (
+            {
+                radiusBottom: index * ringInterpolation + ringInterpolation,
+                radiusTop: index * ringInterpolation + ringInterpolation - ringInterpolation * 0.8
+            }));
+    return radiusData.reverse();
 };
 
 const generateRingTreeData = (radiusData, ringSpacing, ringThickness) => {
-  const sampleData = Array.from({ length: radiusData.length }, (currValue, index) => (
-    {
-      radiusBottom: radiusData[index].radiusBottom,
-      radiusTop: radiusData[index].radiusTop,
-      position: [0, (ringSpacing + ringThickness) * index, 0]
-    }));
-
-  console.log(sampleData);
-  return sampleData;
+    return Array.from({length: radiusData.length}, (currValue, index) => (
+        {
+            radiusBottom: radiusData[index].radiusBottom,
+            radiusTop: radiusData[index].radiusTop,
+            position: [0, (ringSpacing + ringThickness) * index, 0]
+        }));
 };
 
-export const ChristmasTree = ({ ringAmount, position, ringSpacing, bottomRadius, ringThickness }) => {
+export const ChristmasTree = ({position, customizationData}) => {
 
-  const radiusData = generateRadiusData(ringAmount, bottomRadius);
-  const ringData = generateRingTreeData(radiusData, ringSpacing, ringThickness);
+    // const ctx = useStore();  --> context should be used later for handling customizaiton data
 
-  const christmasRings = ringData.map((data) =>
-    <TreeRing position={data.position}
-              radiusTop={data.radiusTop}
-              radiusBottom={data.radiusBottom}
-              ringThickness={ringThickness}
-              key={`ring${data.radiusBottom}/${ringAmount}`}/>
-  );
+    const radiusData = generateRadiusData(customizationData.ringAmount, customizationData.bottomRadius);
+    const ringData = generateRingTreeData(radiusData, customizationData.ringSpacing, customizationData.ringThickness);
 
-  return (
-    <group position={position}>
-      {christmasRings}
-    </group>
-  );
+    const [swing, setSwing] = useState(false);
+
+    // Rotation Values:
+    //      X: forward
+    //      Y: circular
+    //      Z: right/left
+    const {rotation} = useSpring({
+        onRest: () => setSwing(!swing), // starting animation in the opposite direction
+        rotation: swing ? [0, 30, 0.2] : [0, 0, -0.2],
+        from: {rotation: swing ? [0, 0, -0.2] : [0, 30, 0.2]},
+        config: {duration: 15000},
+
+    });
+
+    const christmasRings = ringData.map((data) =>
+        <TreeRing position={data.position}
+                  radiusTop={data.radiusTop}
+                  radiusBottom={data.radiusBottom}
+                  ringThickness={customizationData.ringThickness}
+                  key={`ring${data.radiusBottom}/${customizationData.ringAmount}`}/>
+    );
+
+    return (
+        <animated.group position={position} rotation={rotation}>
+            {christmasRings}
+        </animated.group>
+    );
 };
 
 ChristmasTree.propTypes = {
-  position: PropTypes.arrayOf(PropTypes.number),
-  ringAmount: PropTypes.number.isRequired,
-  ringSpacing: PropTypes.number.isRequired,
-  bottomRadius: PropTypes.number.isRequired,
-  ringThickness: PropTypes.number.isRequired
+    position: PropTypes.arrayOf(PropTypes.number),
+    customizationData: PropTypes.objectOf(PropTypes.number)
 };
 

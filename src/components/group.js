@@ -4,15 +4,6 @@ import { useThree } from "react-three-fiber";
 
 export const Group = ({ children }) => {
 
-  const [rotZ, setRotZ] = useState(0);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setRotZ((rotZ + 0.01) % 100);
-    }, 10);
-    return () => clearTimeout(timer);
-  }, [rotZ]);
-
   const { camera } = useThree();
   camera.fov = 45;
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -22,7 +13,7 @@ export const Group = ({ children }) => {
   camera.position.set(0, 0, 100);
 
   return (
-    <group rotation={[0, 0, 0]}>
+    <group>
       {children}
     </group>
   );
