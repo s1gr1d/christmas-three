@@ -1,7 +1,7 @@
 import React from "react";
 import styled from 'styled-components'
 import {useStore} from "../data/storeContext";
-import { useSpring, animated } from 'react-spring'
+import { animated } from 'react-spring'
 
 const StyledBox = styled(animated.div)`
   display: flex;
@@ -18,7 +18,7 @@ export const Controls = () => {
 
     return (
         <>
-            <StyledBox></StyledBox>
+            <StyledBox/>
         </>
     );
 };

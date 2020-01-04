@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {TreeRing} from "./treeRing";
 import {useSpring, animated} from '@react-spring/three'
 
+// generates an array with size data of the radius for each tree-ring
 const generateRadiusData = (ringAmount, bottomRadius) => {
     const ringInterpolation = bottomRadius / ringAmount; // how much space is between the rings from top (0) to bottom
     const radiusData = Array.from({length: ringAmount},
@@ -14,6 +15,7 @@ const generateRadiusData = (ringAmount, bottomRadius) => {
     return radiusData.reverse();
 };
 
+// generates an object with the previously generated radius data and the position values
 const generateRingTreeData = (radiusData, ringSpacing, ringThickness) => {
     return Array.from({length: radiusData.length}, (currValue, index) => (
         {

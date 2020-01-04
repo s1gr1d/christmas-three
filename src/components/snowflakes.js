@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react'
 import {animated, useSpring} from "@react-spring/three";
 
-export function Stars() {
+export function Snowflakes() {
 
     const [move, setMove] = useState(false);
 
@@ -9,13 +9,13 @@ export function Stars() {
         onRest: () => setMove(!move), // starting animation in the opposite direction
         springRot: move ? [0, 0, 0] : [360, 360, 360],
         from: {springRot: move ? [360, 360, 360] : [0, 0, 0]},
-        config: {duration: 2000000},
+        config: {duration: 4000000},
 
     });
 
     const coords = useMemo(() => {
-        return Array.from({length: 1000},
-            () => [Math.random() * 800 - 400, Math.random() * 800 - 400, Math.random() * 800 - 400])
+        return Array.from({length: 5000},
+            () => [Math.random() * 600-300, Math.random() * 600-300, Math.random() * 600-300])
     }, []);
 
     const stars = useMemo(() => coords.map(([p1, p2, p3], i) => (

@@ -4,7 +4,7 @@ import {Canvas} from "react-three-fiber";
 import "./App.css";
 import {ChristmasTree} from "./components/christmasTree";
 import {StoreProvider} from "./data/storeContext";
-import {Stars} from "./components/stars";
+import {Snowflakes} from "./components/snowflakes";
 
 // as the context is not working yet, the initial data is stored here
 const customizationData = {
@@ -18,13 +18,13 @@ const customizationData2 = {
     ringAmount: 10,
     ringSpacing: 1,
     bottomRadius: 10,
-    ringThickness: 5
+    ringThickness: 2
 };
 
 const App = () => (
     <StoreProvider>
         <Canvas>
-            <Stars/>
+            <Snowflakes/>
             <Group>
                 <ChristmasTree
                     position={[0, -20, 0]}

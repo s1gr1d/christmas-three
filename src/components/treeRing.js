@@ -7,7 +7,7 @@ export const TreeRing = ({position, radiusTop, radiusBottom, ringThickness}) => 
         const [hovered, setHovered] = useState(false)
 
         const {animatedPos} = useSpring({
-            animatedPos: hovered ? [position[0], position[1] + 10, position[2]] : position,
+            animatedPos: hovered ? [position[0], position[1] + 5, position[2]] : position,
             from: {animatedPos: position},
             config: {duration: 2000}
         });
