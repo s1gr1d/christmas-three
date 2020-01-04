@@ -4,9 +4,11 @@ This project is a small christmas project with three.js using react-three-fiber,
 
 
 
-The app creates a christmas tree, depending on the given data (`ringSpacing`, `ringAmount` ,...)
+The app creates a christmas tree, depending on the given data (`ringSpacing`, `ringAmount` ,...).
 
-![screenshot](./screenshot.png)
+With the use of React spring the trees and snowflakes are moving and it is possible to make the tree rings move if they are hovered.
+
+![screenshot](./screenshot.jpg)
 
 
 
